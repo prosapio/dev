@@ -6,15 +6,13 @@ services:
     expose:
       - "80"
     environment:
-      - VIRTUAL_HOST=dev.reservofficer.se
-      - VIRTUAL_PORT=80
-      - LETSENCRYPT_HOST=dev.reservofficer.se
-      - LETSENCRYPT_EMAIL=digitalocean@prosapio.se
+      - VIRTUAL_HOST=${FQDN}
+      - LETSENCRYPT_HOST=${FQDN}
     volumes:
-      - /home/sysadmin/dev/www/static/files:/usr/share/nginx/html:ro
+      - ./www/static/files:/usr/share/nginx/html:ro
     networks:
       - proxy
-    restart: unless-stopped
+    #restart: unless-stopped
 
 networks:
   proxy:
