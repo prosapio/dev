@@ -1,20 +1,14 @@
 version: '3'
-
 services:
-  nginx:
-    image: nginx:alpine
-    expose:
-      - "80"
-    environment:
-      - VIRTUAL_HOST=${FQDN}
-      - LETSENCRYPT_HOST=${FQDN}
-    volumes:
-      - ./www/static/files:/usr/share/nginx/html:ro
-    networks:
-      - proxy
-    #restart: unless-stopped
+    web:
+        image: nginx:alpine
+#        ports:
+#            - 80:80
+#            - 443:443
+#        networks: 
+#            - nginx-net
 
 networks:
-  proxy:
+  default:
     external:
-      name: nginx-proxy
+      name: nginx-net

@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  nginx:
+    image: ${NGINX_IMAGE}:${NGINX_TAG}
+    expose:
+      - "80"
+    environment:
+      - VIRTUAL_HOST=${FQDN}
+      - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=${FQDN}
+      - LETSENCRYPT_EMAIL=admin@prosapio.se
+    volumes:
+      - ./www/static/files:/usr/share/nginx/html:ro
+    networks:
+      - proxy
+    restart: unless-stopped
+
+networks:
+  proxy:
+    external:
+      name: nginx-proxy
